@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+
+# Linux VM files
+*.vdi
+*.vmdk
+*.ova
+
+# Logs
+*.log
+
+# Environment
+.env
+
+# VSCode
+.vscode/
+
+# Splunk
+splunk/var/log/
+
+# OS files
+Thumbs.db
