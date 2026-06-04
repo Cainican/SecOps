@@ -1,0 +1,8 @@
+Kali Linux
+192.168.56.101
+
+Ubuntu Server
+192.168.56.102
+
+Network Type:
+VirtualBox Host-Only Adapter

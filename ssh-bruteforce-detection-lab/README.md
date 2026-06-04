@@ -1,8 +1,8 @@
 # SSH Brute-Force Detection Lab
 
-This project demonstrates the detection of SSH brute-force attacks using Splunk SIEM in a home cybersecurity lab environment.
+This project demonstrates the detection and analysis of SSH brute-force attacks using Splunk Enterprise in a home cybersecurity lab environment.
 
-Attack traffic was generated from Kali Linux against an Ubuntu Server target. Authentication logs were then forwarded to Splunk for analysis, alert creation, and dashboard visualization.
+Attack traffic was generated from Kali Linux against an Ubuntu Server target. Authentication logs were forwarded to Splunk for analysis, detection, and visualization.
 
 ```text
 Kali Linux → Ubuntu Server → Splunk
@@ -13,11 +13,9 @@ Kali Linux → Ubuntu Server → Splunk
 
 # SSH ブルートフォース攻撃検知ラボ
 
-このプロジェクトでは、ホームサイバーセキュリティラボ環境において、
-Splunk SIEM を使用した SSH ブルートフォース攻撃の検知を実演しています。
+このプロジェクトでは、ホームサイバーセキュリティラボ環境において、Splunk Enterprise を使用した SSH ブルートフォース攻撃の検知および分析を実施しました。
 
-Kali Linux から Ubuntu Server に対して攻撃トラフィックを生成し、
-認証ログを Splunk に転送して分析・アラート作成・ダッシュボード可視化を行いました。
+Kali Linux から Ubuntu Server に対して攻撃トラフィックを生成し、認証ログを Splunk に転送して分析・検知・可視化を行いました。
 
 ```text
 Kali Linux → Ubuntu Server → Splunk
@@ -36,7 +34,8 @@ Kali Linux → Ubuntu Server → Splunk
 * OpenSSH
 * Hydra
 * Linux Syslogs
-* VirtualBox / VMware
+* VirtualBox
+* Host-Only Networking
 
 ---
 
@@ -52,13 +51,27 @@ Kali Linux → Ubuntu Server → Splunk
 
 ## ラボ構成
 
-| 役割                | システム                  |
-| -----------------  | ------------------------- |
-| 攻撃マシン          | Kali Linux                |
-| 対象サーバ          | Ubuntu Server             |
-| SIEMプラットフォーム | Splunk Enterprise         |
-| 攻撃手法            | Hydra SSH ブルートフォース  |
-| ログソース          | `/var/log/auth.log`       |
+| 役割           | システム                |
+| ------------ | ------------------- |
+| 攻撃マシン        | Kali Linux          |
+| 対象サーバ        | Ubuntu Server       |
+| SIEMプラットフォーム | Splunk Enterprise   |
+| 攻撃手法         | Hydra SSH ブルートフォース  |
+| ログソース        | `/var/log/auth.log` |
+
+### Network Configuration
+
+| System        | IP Address     |
+| ------------- | -------------- |
+| Kali Linux    | 192.168.56.101 |
+| Ubuntu Server | 192.168.56.102 |
+
+### ネットワーク構成
+
+| システム          | IPアドレス         |
+| ------------- | -------------- |
+| Kali Linux    | 192.168.56.101 |
+| Ubuntu Server | 192.168.56.102 |
 
 ---
 
@@ -88,12 +101,16 @@ Hydra was used from the Kali Linux machine to simulate multiple failed SSH login
 
 Kali Linux マシンから Hydra を使用し、Ubuntu Server に対して複数回の SSH ログイン失敗攻撃をシミュレーションしました。
 
-### Example attack command
+### Example Attack Command
+
+```bash
+hydra -l root -P testlist.txt -t 4 ssh://192.168.56.102
+```
 
 ### 攻撃コマンド例
 
 ```bash
-hydra -l root -P rockyou.txt ssh://TARGET_IP
+hydra -l root -P testlist.txt -t 4 ssh://192.168.56.102
 ```
 
 ---
@@ -106,22 +123,28 @@ Authentication logs were monitored and forwarded into Splunk for analysis.
 
 認証ログを監視し、Splunk に転送して分析を行いました。
 
-### Example Linux authentication log
+### Example Linux Authentication Log
+
+```text
+Failed password for root from 192.168.56.101 port 22 ssh2
+```
 
 ### Linux認証ログ例
 
 ```text
-Failed password for invalid user admin from 192.168.x.x port 22 ssh2
+Failed password for root from 192.168.56.101 port 22 ssh2
 ```
 
-### Example Splunk search query
+### Example Splunk Search Query
+
+```spl
+index=* "Failed password"
+```
 
 ### Splunk検索クエリ例
 
 ```spl
-index=linux sourcetype=syslog "Failed password"
-| stats count by src_ip
-| sort - count
+index=* "Failed password"
 ```
 
 ---
@@ -174,23 +197,13 @@ index=linux sourcetype=syslog "Failed password"
 
 ## スクリーンショット
 
-### Hydra Attack
+### Hydra Attack / Ubuntu Authentication Logs
 
-### Hydra攻撃画面
-
-(Add screenshot here)
+![Authentication Logs](screenshots-screenshots-auth-log-failures.jpg)
 
 ### Splunk Search Results
 
-### Splunk検索結果
-
-(Add screenshot here)
-
-### Dashboard Visualization
-
-### ダッシュボード可視化
-
-(Add screenshot here)
+![Splunk Search Results](screenshots-screenshots-splunk-failed-password-search.jpg)
 
 ---
 
@@ -220,5 +233,4 @@ index=linux sourcetype=syslog "Failed password"
 
 This project was created for educational and defensive cybersecurity purposes only. All testing was performed in a controlled lab environment.
 
-本プロジェクトは教育および防御目的のサイバーセキュリティ学習用として作成されています。
-すべての検証は管理されたラボ環境内で実施しました。
+本プロジェクトは教育および防御目的のサイバーセキュリティ学習用として作成されています。すべての検証は管理されたラボ環境内で実施しました。

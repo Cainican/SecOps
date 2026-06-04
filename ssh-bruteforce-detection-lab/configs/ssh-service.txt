@@ -1,0 +1,7 @@
+sudo systemctl status ssh
+
+SSH Service:
+Active (running)
+
+Port:
+22/TCP
