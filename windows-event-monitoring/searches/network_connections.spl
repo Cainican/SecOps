@@ -1,0 +1,5 @@
+source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
+| search "<EventID>3</EventID>"
+| rex "Data Name='DestinationIp'>(?<DestinationIp>[^<]+)"
+| stats count by DestinationIp
+| sort -count

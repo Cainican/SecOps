@@ -1,0 +1,4 @@
+source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
+| rex "Data Name='Image'>(?<Image>[^<]+)"
+| rex "Data Name='CommandLine'>(?<CommandLine>[^<]+)"
+| table _time Image CommandLine

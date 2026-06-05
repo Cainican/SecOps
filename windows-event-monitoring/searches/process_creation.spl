@@ -1,0 +1,4 @@
+source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
+| rex "Data Name='Image'>(?<Image>[^<]+)"
+| stats count by Image
+| sort -count

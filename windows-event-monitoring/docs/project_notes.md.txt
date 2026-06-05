@@ -1,0 +1,25 @@
+# Project Notes
+
+## Environment / 環境
+
+| Item | Details |
+|------|---------|
+| Windows Host / Windowsホスト | Lenovo Legion Pro 5 |
+| Virtual Machine / 仮想マシン | Ubuntu Server |
+| Splunk Server / Splunkサーバー | 192.168.56.102 |
+| Forwarding Port / 転送ポート | 9997 |
+
+## Achievements / 達成内容
+
+- Installed Sysmon / Sysmonをインストール
+- Installed Splunk Universal Forwarder / Splunk Universal Forwarderをインストール
+- Configured Splunk receiver / Splunk受信設定を構成
+- Forwarded Windows Sysmon events / Windows SysmonイベントをSplunkへ転送
+- Verified events inside Splunk / Splunk上でイベントを確認
+
+## Next Improvements / 今後の改善
+
+- Deploy SwiftOnSecurity Sysmon configuration / SwiftOnSecurityのSysmon設定を適用
+- Create Splunk dashboards / Splunkダッシュボードを作成
+- Build detection searches / 検知用検索を作成
+- Add alerting rules / アラートルールを追加
