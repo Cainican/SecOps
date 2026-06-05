@@ -1,0 +1,10 @@
+Sysmon installed on Windows host.
+
+Installation command:
+
+.\Sysmon64.exe -accepteula -i
+
+Future improvement:
+Apply SwiftOnSecurity Sysmon configuration.
+
+https://github.com/SwiftOnSecurity/sysmon-config
