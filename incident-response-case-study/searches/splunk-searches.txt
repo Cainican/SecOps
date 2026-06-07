@@ -1,0 +1,20 @@
+"Failed password"
+| stats count as failed_attempts
+
+
+index=* "Failed password"
+
+
+index=* Accepted password
+
+
+index=* "192.168.56.101"
+
+
+("Failed password" OR "Accepted password")
+
+
+index=* "Accepted password"
+
+
+index=* "Failed password"
