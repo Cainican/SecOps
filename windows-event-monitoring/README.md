@@ -65,14 +65,14 @@ Windows events are forwarded to Splunk Enterprise through Splunk Universal Forwa
 ### Process Creation / プロセス作成
 
 ```spl
-source="WinEventLog/Operational"
+source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
 ```
 
 ### Process Statistics / プロセス統計
 
 ```spl
-source="WinEventLog/Operational"
-| rex "Data Name='Image'>(?[^<]+)"
+source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
+| rex "Data Name='Image'>(?<Image>[^<]+)"
 | stats count by Image
 | sort -count
 ```
@@ -80,9 +80,9 @@ source="WinEventLog/Operational"
 ### Command Line Activity / コマンドライン監視
 
 ```spl
-source="WinEventLog/Operational"
-| rex "Data Name='Image'>(?[^<]+)"
-| rex "Data Name='CommandLine'>(?[^<]+)"
+source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
+| rex "Data Name='Image'>(?<Image>[^<]+)"
+| rex "Data Name='CommandLine'>(?<CommandLine>[^<]+)"
 | table _time Image CommandLine
 ```
 

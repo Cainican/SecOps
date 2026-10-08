@@ -15,7 +15,7 @@ incident-response-case-study/
 │
 ├── README.md
 ├── attack-scripts/
-│   └── hydra-command.txt
+│   └── hydra-attack.txt
 ├── searches/
 │   └── splunk-searches.txt
 ├── docs/

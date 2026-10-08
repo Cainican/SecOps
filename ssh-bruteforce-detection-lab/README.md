@@ -199,11 +199,11 @@ index=* "Failed password"
 
 ### Hydra Attack / Ubuntu Authentication Logs
 
-![Authentication Logs](screenshots-screenshots-auth-log-failures.jpg)
+![Authentication Logs](screenshots/screenshots-auth-log-failures.jpg)
 
 ### Splunk Search Results
 
-![Splunk Search Results](screenshots-screenshots-splunk-failed-password-search.jpg)
+![Splunk Search Results](screenshots/screenshots-splunk-failed-password-search.jpg)
 
 ---
 
