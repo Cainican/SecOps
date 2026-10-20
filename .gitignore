@@ -21,3 +21,9 @@ splunk/var/log/
 
 # OS files
 Thumbs.db
+# Separate git repos kept in this folder (each has its own GitHub remote)
+ISMS-Cloud-Security*/
+
+# Hydra / lab leftovers
+*.restore
+testlist.txt
